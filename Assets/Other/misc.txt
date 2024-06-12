@@ -1,0 +1,4 @@
+Line counter command
+git ls-files | egrep "Assets/Scripts.*cs$|Assets/Python.*\.py$" | xargs -d '\n' cat | wc -l
+Python server command
+python run.py python -p dual -v full_system

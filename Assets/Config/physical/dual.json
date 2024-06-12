@@ -1,0 +1,21 @@
+{
+    "nodes" : [
+        {
+            "name" : "unity",
+            "ip" : "127.0.0.1",
+            "port" : 8080,
+            "packages" : [
+                "Wrappers.Core"
+            ]
+        },
+        {
+            "name" : "python",
+            "ip" : "127.0.0.1",
+            "port" : 8090,
+            "packages" : [
+                "llm",
+                "genai"
+            ]
+        }
+    ]
+}

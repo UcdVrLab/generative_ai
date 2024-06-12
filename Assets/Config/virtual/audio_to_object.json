@@ -1,0 +1,16 @@
+{
+    "nodes": [
+        { "id": 0, "name": "Microphone" },
+        { "id": 1, "name": "Whisper" },
+        { "id": 2, "name": "ShapE" },
+        { "id": 3, "name": "CreateObject" },
+        { "id": 4, "name": "GTTS", "default": true},
+        { "id": 5, "name": "Speaker" }
+    ],
+    "edges": [
+        { "a": 0, "b": 1, "type": "audio"},
+        { "a": 1, "b": 2, "type": "text"},
+        { "a": 2, "b": 3, "type": "mesh"},
+        { "a": 4, "b": 5, "type": "audio"}
+    ]
+}
