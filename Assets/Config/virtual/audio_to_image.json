@@ -1,0 +1,15 @@
+{
+    "nodes": [
+        { "id": 0, "name": "SendPrompt" },
+        { "id": 1, "name": "Microphone" },
+        { "id": 2, "name": "Whisper" },
+        { "id": 3, "name": "StableDiffusion" },
+        { "id": 4, "name": "SetTexture" }
+    ],
+    "edges": [
+        { "a": 0, "b": 3, "type": "text"},
+        { "a": 1, "b": 2, "type": "audio"},
+        { "a": 2, "b": 3, "type": "text"},
+        { "a": 3, "b": 4, "type": "image"}
+    ]
+}

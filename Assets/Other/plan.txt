@@ -1,0 +1,31 @@
+Large
+<> Improve Stable Diffusion Resolution
+    Could use turbo, sdxl or a resolution increaser, or draw images in patches
+[] Create NPC generation functionality
+    Need to store a collection of NPCS (ids, names and details)
+    NPC_Controller - List of NPC gameObjects
+    NPC_Gameobject
+        Mic - Controls what the NPC can hear (triggered by player and other NPCS)
+        Controls - Lets the NPC randomly move or do other actions
+        Appearance - AI Generated body and head (Images)
+        Speakers - Controls what the NPC says
+    NPC_LLMs - Python pipelines for dialogue / actions, store previous dialogue
+    Can create a new NPC by triggering the converse command which will send appropriate messages to NPC_Controller and LLMs
+    Ideally would have seperate nodes for each NPC to allow dynamic functionality but not possible at present
+Medium
+<X> Add better messaging when failing to create mesh
+[] or alternatively use algorithm to split mesh into multiple parts
+<X> Add UI for VR
+    [] Handler status updates
+    [] Loading animations
+    <X> Debugger UI
+<> Fix URP lighting
+<> Test architecture on distributed setup
+Small
+[] Upgrade Whisper and or LLM to larger param models
+<X> Use gtts after whisper to hear what the system thought you said
+<> Parse glowing material for color
+
+
+Future
+<X> Add default paths to virtual network, ie gtts to speaker to allow undefined state transitions, for rare but necessary logic

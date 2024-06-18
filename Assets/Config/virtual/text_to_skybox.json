@@ -1,0 +1,11 @@
+{
+    "nodes": [
+        { "id": 0, "name": "SendPrompt" },
+        { "id": 1, "name": "StableDiffusion" },
+        { "id": 2, "name": "SetSkybox" }
+    ],
+    "edges": [
+        { "a": 0, "b": 1, "type": "text"},
+        { "a": 1, "b": 2, "type": "image"}
+    ]
+}

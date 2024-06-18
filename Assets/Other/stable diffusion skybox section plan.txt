@@ -1,0 +1,19 @@
+given a path/ or loop on a spheres surface
+This loop can be mapped onto a rectangle in the uv coordinates, ie the biggest rectangle needed to contain it
+however these rectangles while representing the space decently, arent appropriate for contextually infilling
+as the uvs jump from 1 to 0 (seams) and become distorted near the poles
+There for i suggest that we assume the loop is taking place centered at the lat 90 long 180, or uv (0.5,0.5)
+as the loop is centered we can then fill in the loop in on a more normal space with no discontinuity
+we can then apply a reverse transformation to distort the centered infill back to normal spherical coords and overlay it
+
+algorithm
+Given a loop, a list of spherical coordinates(ie (phi, theta) (0-180, 0-360))
+find the min and max and range of phi and theta
+if the range is less than half of the axis
+	recenter all coordinates to be at lat 90 long 180
+	Convert from spherical to uv
+	send the recentered rectangle to stable diffusion to be drawn, with the pixels inside the loop as the mask
+	receive the rectangle back
+	decenter uv coordinates based on min max and range
+	update old texture with new pixels
+else say that loop is too big

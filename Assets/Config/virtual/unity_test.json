@@ -1,0 +1,12 @@
+{
+    "nodes": [
+        { "id": 0, "name": "SendPrompt" },
+        { "id": 1, "name": "Debugger" },
+        { "id": 2, "name": "Microphone" },
+        { "id": 3, "name": "Speaker" }
+    ],
+    "edges": [
+        { "a": 0, "b": 1, "type": "text"},
+        { "a": 2, "b": 3, "type": "audio"}
+    ]
+}

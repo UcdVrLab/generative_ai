@@ -1,0 +1,37 @@
+{
+    "nodes": [
+        { "id": 0, "name": "Microphone" },
+        { "id": 1, "name": "Whisper" },
+        { "id": 2, "name": "LLMController" },
+        { "id": 3, "name": "ShapE" },
+        { "id": 4, "name": "CreateObject" },
+        { "id": 5, "name": "StableDiffusion" },
+        { "id": 6, "name": "SetSkybox" },
+        { "id": 7, "name": "GTTS", "default": true},
+        { "id": 8, "name": "Speaker" },
+        { "id": 9, "name": "Debugger", "default": true},
+
+        { "id": 10, "name": "NPCLLMs"},
+        { "id": 11, "name": "StableDiffusion"},
+        { "id": 12, "name": "NPCHandler"},
+        { "id": 13, "name": "Whisper"},
+        { "id": 14, "name": "LocalMicrophone"}
+    ],
+    "edges": [
+        { "a": 0, "b": 1, "type": "audio"},
+        { "a": 1, "b": 2, "type": "text"},
+        { "a": 2, "b": 3, "type": "text"},
+        { "a": 3, "b": 4, "type": "mesh"},
+        { "a": 2, "b": 5, "type": "text"},
+        { "a": 5, "b": 6, "type": "image"},
+        { "a": 7, "b": 8, "type": "audio"},
+        { "a": 2, "b": 10, "type": "text"},
+
+        { "a": 10, "b": 11, "type": "text"},
+        { "a": 10, "b": 12, "type": "text"},
+        { "a": 11, "b": 12, "type": "image/text"},
+        { "a": 12, "b": 10, "type": "text"},
+        { "a": 14, "b": 13, "type": "audio"},
+        { "a": 13, "b": 12, "type": "text"}
+    ]
+}
