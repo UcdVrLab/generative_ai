@@ -1,3 +1,5 @@
+Installation [Guide Generative AI](https://ucd-vrlab.notion.site/Installation-Guide-Generative-AI-e6dd07c8806e4e6ea16a5a10b9aae7e2?pvs=4)
+
 Git clone this repository<br>
 Need unity installed (version 2022.3.12f1 is what I used)<br>
 Need python version 3.10.6
