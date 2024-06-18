@@ -10,7 +10,7 @@ One you have the project downloaded, open it in unity<br>
 Will need to turn of safe mode, due to some external library (can probably fix for release)<br>
 Need to import the SteamVR package from the asset store<br>
 Maybe VHACD as well<br>
-Make sure the VR system you are using has SteamVR enabled as well<br>
+
 Might have cuda issues too so make sure drivers are updated<br>
 To run, there are two files you should be aware of<br>
 Virtual networks in Config/virtual<br>
