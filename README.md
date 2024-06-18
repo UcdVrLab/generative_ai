@@ -1,3 +1,5 @@
+Installation [Guide Generative AI](https://ucd-vrlab.notion.site/Installation-Guide-Generative-AI-e6dd07c8806e4e6ea16a5a10b9aae7e2?pvs=4)
+
 Git clone this repository<br>
 Need unity installed (version 2022.3.12f1 is what I used)<br>
 Need python version 3.10.6
@@ -10,7 +12,7 @@ One you have the project downloaded, open it in unity<br>
 Will need to turn of safe mode, due to some external library (can probably fix for release)<br>
 Need to import the SteamVR package from the asset store<br>
 Maybe VHACD as well<br>
-Make sure the VR system you are using has SteamVR enabled as well<br>
+
 Might have cuda issues too so make sure drivers are updated<br>
 To run, there are two files you should be aware of<br>
 Virtual networks in Config/virtual<br>
