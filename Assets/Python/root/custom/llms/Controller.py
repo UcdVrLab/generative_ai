@@ -17,7 +17,7 @@ class Controller(TruePipeline):
             - "ObjGen": When the user wishes create an object.
             - "SkyGen": When the user wishes to create a skybox of a location.
             - "Terminate": When the user wishes to stop the interaction.
-            - "Confused": When the you cannot figure out what the user wants or if the format is wrong.
+            - "Confused": When you cannot figure out what the user wants or if the format is wrong.
 
             Here are some examples of conversations between user and Assistant:
 
@@ -38,6 +38,9 @@ class Controller(TruePipeline):
 
             User: I would like to stop
             Command: Terminate
+
+            User: Create a table
+            Command: ObjGen
 
             User: blah blah blah gibberish
             Command: Confused

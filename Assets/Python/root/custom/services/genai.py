@@ -19,7 +19,17 @@ from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 import lilfilter
 print("Done importing")
 
+
+
 import matplotlib.pyplot as plt
+seed = 42
+torch.manual_seed(seed)
+torch.cuda.manual_seed(seed)
+print("Seed: ", seed)
+print("test")
+
+
+
 
 sd_pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", revision="fp16", torch_dtype=torch.float16)
 sd_pipe = sd_pipe.to("cuda")

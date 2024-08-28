@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Wrappers.Core {
     public class Debugger : UpdateWrapper<DataList, object> {
         public TextMeshProUGUI text;
-        public int NumberOfMessages = 5;
+        public int NumberOfMessages = 4;
         private Buffer<string> buffer;
 
         void Start() {

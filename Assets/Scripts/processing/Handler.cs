@@ -116,6 +116,7 @@ public class Handler : RoutingDLProcessor {
     public override void Start() {
         children.StartAll();
         base.Start();
+        TimerController.instance.EndTimer();
     }
 
     public override void InternalTerminate() {
@@ -136,6 +137,7 @@ public class Handler : RoutingDLProcessor {
             var producer = datalist.HeaderPopper<string>("producer")?.data ?? null;
             state = stateRules.Assign(producer);
             datalist.ChangeState(state);
+            TimerController.instance.StartTimer();
         }
         SingleLabelList sll = new();
         if(state.complete) {
