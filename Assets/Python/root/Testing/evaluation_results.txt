@@ -1,0 +1,93 @@
+========== Model: TheBloke/TinyLlama-1.1B-Chat-v1.0-GPTQ ==========
+object_list_test:
+Prompt: Complete a kitchen setup
+Result: Response: kitchen setup, Objects: stainless steel sink, disposable plates, glass bowl, measuring cup, spatula, chef’s hat, baking sheet, toaster oven, utensils, paper
+Prompt: Complete batman's utility belt
+Result: Complete: batman's utility belt, Objects: belt buckle, belt loops, zipper, button, lanyard, key fob
+Prompt: Complete american car set
+Result: Complete: American car set, Objects: Mustang, Corvette, Camaro, BMW, Ferrari, Lamborghini, Porsche, Acura
+Prompt: Complete a medieval weapons set
+Result: Complete: medieval weapons set, Objects: sword, helmet, shield, greatsword, crossbow, spear, axe
+Prompt: Complete a bedroom setup
+Result: Complete: bedroom setup, Objects: bed, nightstand, lamp, dresser, wardrobe, chair
+Prompt: Complete a fruit bowl
+Result: Complete: fruit bowl, Objects: banana, apple, orange, grapefruit, pear, peach, berry muffins, cookie jar
+Prompt: Complete a pirate ship deck
+Result: Complete: pirate ship deck, Objects: sails, anchor, mast, rigging, masts, decks, cannons, helm
+Prompt: Complete a modern living room setup
+Result: Answer: living room setup, Objects: sofa, coffee table, TV, TV stand, bookshelf, lamp, rug, storage units
+Prompt: Complete a medieval marketplace
+Result: Complete: medieval marketplace, Objects: leather goods, cloth goods, silverware, glassware, pottery, textiles, coins, armor, shields, swords, spears, bows, arrows, ar
+Prompt: Complete a science lab workspace
+Result: Complete: science lab workspace, Objects: microscope, pipette, microwave oven, chemical reagent tubes, incubator, beakers, flasks, test tubes, thermometer
+
+relational_test:
+Objects: ['keyboard', 'monitor', 'mouse', 'pc']
+Result: ```
+keyboard infrontof monitor
+mouse totherightof keyboard
+pc totheleftof monitor
+```
+Objects: ['guitar', 'amplifier', 'microphone', 'music stand']
+Result: guitar totherightof amplifier, amplifier totherightof guitar, microphone totherightof amplifier, music stand totherightof amplifier
+Objects: ['pan', 'stove', 'spatula', 'cutting board']
+Result: Pan totherightof stove
+Spatula totherightof pan
+Cutting board totherightof spatula
+
+You may modify the order of the lines as needed.
+
+Please include comments if applicable, describing
+Objects: ['helmet', 'armor', 'sword', 'shield']
+Result: helmet infrontof armor, armor totherightof helmet
+sword infrontof armor, armor totherightof sword
+shield totherightof sword, shield totherightof helmet
+Objects: ['camera', 'tripod', 'lens', 'flash']
+Result: camera infrontof tripod, tripod totherightof camera, lens totherightof camera, flash infrontopossible.
+Objects: ['tree', 'bench', 'fountain', 'lamp post']
+Result: tree infrontof bench, tree totherightof fountain, tree totherightof lamp post
+Objects: ['basketball', 'hoop', 'scoreboard', 'bleachers']
+Result: basketball infrontof hoop, hoop totherightof basketball
+scoreboard infrontof bleachers, bleachers totherightof scoreboard
+bleachers infrontof scoreboard, scoreboard to
+Objects: ['train', 'track', 'station', 'ticket booth']
+Result: train infrontof track, train totherightof track, ticket booth totherightof train
+
+[Explanation]: The input contains many lines with multiple objects in them.
+We define relations between these objects using the "
+Objects: ['painting', 'easel', 'paintbrush', 'palette']
+Result: Object A:
+- Painting infrontof easel
+- Painter totherightof painter
+
+Object B:
+- Paintbrush infrontof palette
+- Palette totherightof painter
+Objects: ['fish tank', 'filter', 'air pump', 'plants']
+Result: fish tank totherightof filter, filter totherightof fish tank, air pump totherightof filter
+air pump totherightof fish tank, plantsthereleftof filter, plants totherightof air p
+
+grid_test:
+Relations: ['keyboard infrontof monitor', 'mouse totherightof keyboard', 'pc totheleftof monitor']
+Result: keyboard (10, 10), monitor (10, 15), mouse (14, 10), pc (5, 15)
+Relations: ['guitar infrontof amplifier', 'microphone totherightof guitar', 'music stand totheleftof guitar']
+Result: guitar (10, 10), amplifier (10, 15), microphone (14, 10), music stand (5, 15)
+Relations: ['pan infrontof stove', 'spatula totherightof stove', 'cutting board totheleftof stove']
+Result: pan (13, 14), spatula (6, 10), cutting board (12, 15)
+Relations: ['helmet infrontof armor', 'sword totherightof helmet', 'shield totheleftof armor']
+Result: helmet (6, 6), sword (6, 13), shield (12, 6), armor (8, 6)
+Relations: ['camera infrontof tripod', 'lens totherightof camera', 'flash totheleftof camera']
+Result: camera (10, 10), lens (10, 15), flash (14, 10), camera (5, 15)
+Relations: ['tree infrontof bench', 'bench totherightof tree', 'fountain totheleftof bench']
+Result: tree (10, 10), bench (10, 15), fountain (14, 10)
+Relations: ['basketball infrontof hoop', 'hoop totherightof scoreboard', 'scoreboard totheleftof bleachers']
+Result: scoreboard (16, 7), hoop (13, 8), basketball (13, 12)
+Relations: ['train infrontof station', 'track totherightof train', 'ticket booth totheleftof station']
+Result: train (18, 7), track (18, 13), ticket booth (6, 17)
+Relations: ['painting infrontof easel', 'paintbrush totherightof painting', 'palette totheleftof easel']
+Result: painting (7, 7), paintbrush (7, 13), palette (13, 7)
+Relations: ['fish tank infrontof filter', 'filter totherightof fish tank', 'air pump totheleftof filter']
+Result: fish tank (10, 10), filter (10, 5), air pump (6, 8)
+
+============================================
+

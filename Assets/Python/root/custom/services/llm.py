@@ -12,19 +12,18 @@ from custom.llms.SkyGen import SkyGen
 from custom.llms.Answerer import Answerer
 from custom.llms.custompipeline import Confused,Terminator,Pipeline
 
-print("Starting to load LLama2 model")
-model_name_or_path = "TheBloke/Llama-2-7b-Chat-GPTQ"
-model = AutoModelForCausalLM.from_pretrained(
-    model_name_or_path, device_map="cuda", trust_remote_code=False, revision="main")
+print("Starting to load TinyLlama model")
+model_name_or_path = "TheBloke/TinyLlama-1.1B-Chat-v1.0-GPTQ"
+model = AutoModelForCausalLM.from_pretrained(model_name_or_path, device_map="cuda", trust_remote_code=False, revision="main")
 tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
-print("Finished loading LLama2 model")
+print("Finished loading TinyLlama model")
 
 class LLMController(MultiTransformation):
     def setup(self):
         self.max_tries = 20
-        # self.send_special([(self.create_special_dl(DataList(), Entry("log", f"LLama2 Initializing")), ["Debugger"])])        
+        # self.send_special([(self.create_special_dl(DataList(), Entry("log", f"LLama Initializing")), ["Debugger"])])        
         self.setup_pipelines()
-        self.send_special([(self.create_special_dl(DataList(), Entry("log", f"LLama2 Loaded")), ["Debugger"])])
+        self.send_special([(self.create_special_dl(DataList(), Entry("log", f"TinyLLama Loaded")), ["Debugger"])])
 
     def setup_pipelines(self):
         self.controller = Controller(model, tokenizer)
