@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f198e2807db8a7b4c8ef88d3169bf47b, type: 3}
+  m_Name: MeshSaverSettings
+  m_EditorClassIdentifier: 
+  defaultShaderGraph: {fileID: -6465566751694194690, guid: 24248e4d21e84d342b7a49c11635f9b3, type: 3}
+  metallicShaderGraph: {fileID: -6465566751694194690, guid: 2f6d847e4ca6c1843a98d02189ce3ec6, type: 3}
+  glowingShaderGraph: {fileID: -6465566751694194690, guid: fc379a7ff0401274eac1ca4a682b629e, type: 3}

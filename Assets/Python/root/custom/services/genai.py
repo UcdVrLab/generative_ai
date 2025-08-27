@@ -7,7 +7,7 @@ from PIL import Image
 
 
 from datastructs.datalist import DataList, Entry
-from processing.services import Transformation
+from processing.services import Transformation, MultiTransformation, MultiLabelList
 from processing.processor import SpecialAction
 from datastructs.audio import Audio
 from datastructs.mesh import Mesh
@@ -128,7 +128,8 @@ class ShapE(Transformation):
             print("Mesh had too many vertices")
             self.send_special(self.create_special_dl(dl, Entry("message", f"Failed to create mesh: {prompt}, too many vertices."), "GTTS"))
             self.send_special(self.create_special_dl(dl, Entry("log", f"System: Failure to create mesh"), "Debugger"))
-            return SpecialAction.NOTHING
+            dl.add_content(Entry("MESH_FAILURE", prompt)) ##Edited by: Jeric Antony - Allows thread to continue to unity instead of terminating, allows tracking of MOG objects 20/08/25
+            return dl
 
 class GTTS(Transformation):
     def process(self, dl: DataList) -> DataList:

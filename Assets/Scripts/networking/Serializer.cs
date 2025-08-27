@@ -33,27 +33,112 @@ class StringSerializer : ISerializer<string> {
     }
 }
 
-class LongSerializer : ISerializer<long> {
-    public byte[] ToBytes(long num) {
+class LongSerializer : ISerializer<long>
+{
+    public byte[] ToBytes(long num)
+    {
         byte[] bytes = BitConverter.GetBytes(num);
         Array.Reverse(bytes);
         return bytes;
     }
 
-    public long FromBytes(byte[] bytes) {
+    public long FromBytes(byte[] bytes)
+    {
         var copy = bytes.ToArray();
         Array.Reverse(copy);
         return BitConverter.ToInt64(copy, 0);
     }
 }
-class DummySerializer<D> : ISerializer<D> where D : Dummy, new() {
-    public D FromBytes(byte[] bytes) {
+
+class IntSerializer : ISerializer<int>
+{
+    public byte[] ToBytes(int num)
+    {
+        byte[] bytes = BitConverter.GetBytes(num);
+
+        if (!BitConverter.IsLittleEndian)
+        {
+            Array.Reverse(bytes);
+        }
+
+        return bytes;
+    }
+
+    public int FromBytes(byte[] bytes)
+    { 
+         if (bytes == null || bytes.Length != 4)
+        {
+            throw new ArgumentException("Byte array must be exactly 4 bytes long.", nameof(bytes));
+        }
+
+        if (!BitConverter.IsLittleEndian)
+        {
+            var reversedBytes = bytes.ToArray();
+            Array.Reverse(reversedBytes);
+            return BitConverter.ToInt32(reversedBytes, 0);
+        }
+
+        return BitConverter.ToInt32(bytes, 0);
+    }
+}
+
+
+/*
+Made by Jeric Antony to serialize vector3 to python tuples and back - 20/08/25
+*/
+class Vector3Serializer : ISerializer<Vector3>
+{
+    public byte[] ToBytes(Vector3 vec)
+    {
+        // Allocate a single 12-byte array
+        byte[] bytes = new byte[12];
+
+        // Get the bytes for each float
+        byte[] xBytes = BitConverter.GetBytes(vec.x);
+        byte[] yBytes = BitConverter.GetBytes(vec.y);
+        byte[] zBytes = BitConverter.GetBytes(vec.z);
+
+        // Ensure the bytes are in little-endian order, regardless of system architecture
+        if (!BitConverter.IsLittleEndian)
+        {
+            Array.Reverse(xBytes);
+            Array.Reverse(yBytes);
+            Array.Reverse(zBytes);
+        }
+
+        // Copy the float bytes into the main array
+        Buffer.BlockCopy(xBytes, 0, bytes, 0, 4);
+        Buffer.BlockCopy(yBytes, 0, bytes, 4, 4);
+        Buffer.BlockCopy(zBytes, 0, bytes, 8, 4);
+
+        return bytes;
+
+    }
+
+    public Vector3 FromBytes(byte[] bytes)
+    {
+        if (bytes.Length != 12)
+            throw new ArgumentException("Expected 12 bytes for Vector3");
+
+        float x = BitConverter.ToSingle(bytes, 0);
+        float y = BitConverter.ToSingle(bytes, 4);
+        float z = BitConverter.ToSingle(bytes, 8);
+        return new Vector3(x, y, z);
+
+    }
+}
+
+class DummySerializer<D> : ISerializer<D> where D : Dummy, new()
+{
+    public D FromBytes(byte[] bytes)
+    {
         var d = new D();
         d.SetBytes(bytes);
         return d;
     }
 
-    public byte[] ToBytes(D d) {
+    public byte[] ToBytes(D d)
+    {
         return d.ToBytes();
     }
 }
@@ -98,6 +183,7 @@ public static class Serializer {
         { "bytes", typeof(byte[]) },
         { "text", typeof(string) },
         { "int", typeof(long) },
+        { "vector3", typeof(Vector3)},
         { "image", typeof(Image) },
         { "audio", typeof(Audio) },
         { "mesh", typeof(Mesh) },
@@ -107,8 +193,9 @@ public static class Serializer {
     private static readonly Dictionary<Type, object> serializers = new() {
         { typeof(byte[]), new BytesSerializer() },
         { typeof(string), new StringSerializer() },
-        { typeof(int), new LongSerializer() },  //dont like this
+        { typeof(int), new LongSerializer() }, //dont like this
         { typeof(long), new LongSerializer() },
+        { typeof(Vector3), new Vector3Serializer()},
         { typeof(Image), new DummySerializer<Image>() },
         { typeof(Audio), new DummySerializer<Audio>() },
         { typeof(Mesh), new DummySerializer<Mesh>() },

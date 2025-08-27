@@ -91,3 +91,25 @@ class FloatSerializer(ISerializer[float]):
 # Register float serializer
 Serializer.serializers.append(FloatSerializer)
 Serializer.type_dict['float'] = float
+
+
+
+# Define Vector3 Serializer for a tuple of 3 floats, - Made by Jeric Antony 20/08/25
+class Vector3Serializer(ISerializer[tuple]):
+    @classmethod
+    def to_bytes(cls, t: tuple) -> bytes:
+        if not isinstance(t, tuple) or len(t) != 3 or not all(isinstance(f, float) for f in t):
+            raise ValueError("Expected a tuple of 3 floats (x, y, z)")
+        return struct.pack('<fff', *t)  # pack 3 floats into a byte array little endian
+        
+    @classmethod
+    def from_bytes(cls, b: bytes) -> tuple:
+        if len(b) != 12:
+            raise ValueError("Expected 12 bytes for Vector3")
+        return struct.unpack('<fff', b)  # unpack 3 floats from byte array
+
+#Register Vector3 serializer
+Serializer.serializers.append(Vector3Serializer)
+Serializer.type_dict['vector3'] = tuple
+
+
