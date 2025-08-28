@@ -1,2 +1,2 @@
 Use the link for installation [Guide Generative AI]
-https://rhinestone-bite-240.notion.site/Installation-Guide-Generative-AI-0a69a5b6dc74495a9c2f0c686b79fe05
+https://nutritious-outrigger-365.notion.site/Installation-Guide-Generative-AI-25c1e9614e3b80c5ba18edc4802f51ba
