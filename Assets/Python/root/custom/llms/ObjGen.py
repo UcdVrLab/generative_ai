@@ -1,5 +1,6 @@
 import re
 
+from typing import Union, List
 from custom.llms.custompipeline import TruePipeline
 from datastructs.datalist import Entry
 from networking.serializer import Serializer 
@@ -73,6 +74,41 @@ class ObjGen(TruePipeline):
              return (m.group(1), m.group(2), float(m.group(3)))
          else:
              return result
+         
+    
+    def process_request_batch(self, inputs: Union[str, List[str]])-> Union[str, List[str]]:
+        """
+        Made by Jeric Antony 20/08/25
+        Processes one or more object gen descriptions in a batched manner.
+        Allows MOG object list to run ObjGen efficently in MOG Handler
+        """
+        is_single_input = isinstance(inputs, str)
+        prompts_to_process = [inputs] if is_single_input else inputs
+
+        full_prompts = []
+        for individual_input in prompts_to_process:
+            full_prompts.append(self.build_prompt(individual_input))
+
+        batch_responses = self.pipe(full_prompts, max_new_tokens=100)
+
+        outputs_raw = []
+        for i, response_single_prompt in enumerate(batch_responses):
+            response = response_single_prompt[0]['generated_text']
+
+            original_prompt_for_split = full_prompts[i]
+
+            # Most of the time gives output we want + extra print
+            # We extract only the lines that match "object (x, y)"
+            split_response = response.split(original_prompt_for_split, 1)
+            if len(split_response) > 1:
+                answer = split_response[1].strip()
+            else:
+                answer = response.strip()
+                
+            matches = self.get_specifics(answer)
+            outputs_raw.append(matches)
+        
+        return outputs_raw[0] if is_single_input else outputs_raw
 
 
     def service(cls) -> str:

@@ -16,6 +16,7 @@ class Controller(TruePipeline):
             - "Question": When the user wishes to ask you a question.
             - "ObjGen": When the user wishes create an object.
             - "SkyGen": When the user wishes to create a skybox of a location.
+            - "MultObjGen": When the user wants to create/complete a setup/collection/array of objects. (Hint keywords: 'array', 'setup', 'complete', 'several items') - The user may also list several items then "MultObjGen"
             - "Terminate": When the user wishes to stop the interaction.
             - "Confused": When you cannot figure out what the user wants or if the format is wrong.
 
@@ -30,11 +31,23 @@ class Controller(TruePipeline):
             User: I am holding a sword
             Command: ObjGen
 
+            User: Create a large medieval axe
+            Command: ObjGen
+
             User: I am in a cave
             Command: SkyGen
 
+            User: Complete a primary school table setup with several items
+            Command: MultObjGen
+
+            User: Complete a full laboratory workspace with a microscope, bunsen burner and lab table
+            Command: MultObjGen
+
             User: I am having a conversation with Darth Vader
             Command: Converse
+
+            User: Complete a bedroom setup
+            Command: MultObjGen
 
             User: I would like to stop
             Command: Terminate

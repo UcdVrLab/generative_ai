@@ -2,11 +2,12 @@ import struct
 from PIL import Image as pim
 from PIL.Image import Image
 
-from networking.serializer import ISerializer, Serializer
+from networking.serializer import ISerializer, Serializer, FloatSerializer, Vector3Serializer
 from datastructs.command import Command, CommandType, DirectCommand
 from datastructs.states import State
 from datastructs.audio import Audio
 from datastructs.mesh import Mesh
+
 
 type_dict = {
     "bytes" : bytes,
@@ -16,7 +17,7 @@ type_dict = {
     "state": State,
     "image": Image,
     "audio": Audio,
-    "mesh": Mesh
+    "mesh": Mesh,
 }
 
 class BytesSerializer(ISerializer[bytes]):
@@ -100,3 +101,72 @@ class MeshSerializer(ISerializer[Mesh]):
     @classmethod
     def from_bytes(cls, b: bytes):
         return Mesh.from_bytes(b)
+
+
+
+
+#MOG Coordinate Map - final output of multiObjectGen pipeline as a class so it can be routed by the handler to our MOGHandler multi transformation - Made by Jeric Antony 20/08/25
+class MOGCoordinateMap(dict[str, tuple[float, float, float]]):
+    @classmethod
+    def to_bytes(cls, self) -> bytes:
+        # Serialize the number of items in the dictionary (e.g. 8-byte long)
+        num_items_bytes = IntSerializer.to_bytes(len(self)) 
+
+        serialized_entries_bytes = []
+        for key, vec3_tuple in self.items():
+            # Get raw bytes of the item name key
+            encoded_key = key.encode('utf-8')
+            # Serialize the length of the key
+            key_len_bytes = IntSerializer.to_bytes(len(encoded_key))
+            
+            # Serialize the Vector3 tuple (fixed 12 bytes)
+            serialized_vec3 = Vector3Serializer.to_bytes(vec3_tuple)
+            
+            # Combine length of key, key bytes, and Vector3 bytes for this entry
+            serialized_entries_bytes.append(key_len_bytes + encoded_key + serialized_vec3)
+        
+        # Combine the total number of items with all serialized entries
+        return num_items_bytes + b''.join(serialized_entries_bytes)
+
+    @classmethod
+    def from_bytes(cls, b: bytes):
+        offset = 0
+        
+        # Read the number of items
+        num_items = IntSerializer.from_bytes(b[offset : offset + 8]) # IntSerializer consumes 8 bytes
+        offset += 8
+
+        result_dict: MOGCoordinateMap = MOGCoordinateMap()
+        for _ in range(num_items):
+            # Read the length of the current key string
+            key_len = IntSerializer.from_bytes(b[offset : offset + 8])
+            offset += 8
+            
+            # Read the actual key bytes using the obtained length
+            key_bytes = b[offset : offset + key_len]
+            # Deserialize the string using StringSerializer 
+            key = StringSerializer.from_bytes(key_bytes)
+            offset += key_len
+
+            # Read the Vector3 tuple bytes (fixed 12 bytes)
+            vec3_bytes = b[offset : offset + 12] 
+            # Deserialize the Vector3 tuple
+            vec3_tuple = Vector3Serializer.from_bytes(vec3_bytes)
+            offset += 12
+
+            result_dict[key] = vec3_tuple
+        
+        return result_dict
+    
+#Register MOG map serializer - Jeric Antony 20/08/25
+class MOGCoordinatesMapSerializer(ISerializer[MOGCoordinateMap]):
+    @classmethod
+    def to_bytes(cls, objmap: MOGCoordinateMap):
+        return  objmap.to_bytes()
+    
+    @classmethod
+    def from_bytes(cls, b: bytes):
+        return MOGCoordinateMap.from_bytes(b)
+    
+Serializer.serializers.append(MOGCoordinatesMapSerializer)
+Serializer.type_dict['mog_coordinate_map'] = MOGCoordinateMap

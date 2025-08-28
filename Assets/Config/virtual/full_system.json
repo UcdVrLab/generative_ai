@@ -15,17 +15,23 @@
         { "id": 11, "name": "StableDiffusion"},
         { "id": 12, "name": "NPCHandler"},
         { "id": 13, "name": "Whisper"},
-        { "id": 14, "name": "LocalMicrophone"}
+        { "id": 14, "name": "LocalMicrophone"},
+        { "id": 15, "name": "MOGHandler"} 
     ],
     "edges": [
         { "a": 0, "b": 1, "type": "audio"},
         { "a": 1, "b": 2, "type": "text"},
         { "a": 2, "b": 3, "type": "text"},
+
         { "a": 3, "b": 4, "type": "mesh"},
         { "a": 2, "b": 5, "type": "text"},
         { "a": 5, "b": 6, "type": "image"},
         { "a": 7, "b": 8, "type": "audio"},
         { "a": 2, "b": 10, "type": "text"},
+
+        { "a": 2, "b": 15, "type": "text"},
+        { "a": 15, "b": 3, "type": "text"},
+
 
         { "a": 10, "b": 11, "type": "text"},
         { "a": 10, "b": 12, "type": "text"},
